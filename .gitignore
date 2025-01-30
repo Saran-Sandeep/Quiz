@@ -28,6 +28,10 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# Prettier configurations
+src/.prettierignore
+src/.prettierrc
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/

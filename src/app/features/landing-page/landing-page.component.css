@@ -1,0 +1,137 @@
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    /* border: 1px solid red; */
+}
+
+.hero__content {
+    background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), url('/girl__hero.svg') center/cover no-repeat;
+}
+
+.hero__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 2rem;
+    padding: 4rem 2rem;
+    /* border: 1px solid greenyellow; */
+}
+
+.hero__title {
+    font-size: var(--size-3xl);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hero__subtitle {
+    font-size: var(--size-lg);
+    font-weight: 500;
+    color: var(--color-alt-text);
+    border-left: 1px solid var(--color-alt-text);
+    padding: 1ch;
+    background: linear-gradient(to right, rgba(71, 85, 105, 0), rgba(71, 85, 105, 0));
+}
+
+.hero__actions {
+    margin: 2rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    font-size: var(--size-lg);
+}
+
+.hero__actions .btn {
+    padding: 0.75rem 1.5rem;
+}
+
+.hero__img {
+    display: none;
+}
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+@media (min-width: 640px) {
+
+    .hero__text {
+        padding: 6rem 2rem;
+    }
+
+    .hero__title {
+        font-size: var(--size-4xl);
+    }
+
+    .hero__subtitle {
+        font-size: var(--size-xl);
+    }
+
+    .hero__actions {
+        margin: 2rem 0 2rem 0;
+        font-size: var(--size-xl);
+    }
+}
+
+/* md */
+@media (min-width: 768px) {
+
+    .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: auto;
+    }
+
+    .hero__content {
+        background: none;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hero__img {
+        display: inline-block;
+        flex: 1;
+    }
+
+    .hero__text {
+        flex: 1;
+    }
+
+}
+
+/* lg */
+@media (min-width: 1024px) {
+
+    .hero__content {
+        padding: 0 2rem;
+    }
+
+    .hero__text {
+        padding: 6rem 2rem;
+    }
+
+    .hero__title {
+        font-size: var(--size-5xl);
+    }
+
+    .hero__subtitle {
+        font-size: var(--size-2xl);
+    }
+
+    .hero__actions {
+        margin: 2rem 0 2rem 0;
+        font-size: var(--size-2xl);
+    }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

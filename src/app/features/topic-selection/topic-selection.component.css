@@ -1,0 +1,130 @@
+.topic-selection__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+.topic-selection__title {
+    font-size: var(--size-3xl);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.topic-selection__subtitle {
+    font-size: var(--size-xl);
+    font-weight: 500;
+    color: var(--color-alt-text);
+}
+
+.topic-selection__chip {
+    padding: 0 1em;
+    background-color: var(--color-alt-bg);
+    border-radius: 6rem;
+    display: inline-flex;
+    margin: 0.25em;
+    color: var(--color-text);
+    align-items: center;
+    height: 2em;
+    font-size: var(--size-sm);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.topic-selection__chip--active {
+    transform: translateY(-3px);
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+}
+
+.topic-selection__btn-start {
+    /* align-self: end;
+    margin-right: 2rem; */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    text-wrap: nowrap;
+    font-size: var(--size-base);
+}
+
+.topic-selection__btn-start svg {
+    width: var(--size-lg);
+    height: var(--size-lg);
+}
+
+/* xs */
+/* @media (min-width: 475px) {} */
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+@media (min-width: 768px) {
+    .topic-selection__container {
+        padding: 4rem;
+    }
+
+    .topic-selection__title {
+        font-size: var(--size-4xl);
+    }
+
+    .topic-selection__subtitle {
+        font-size: var(--size-2xl);
+    }
+
+    .topic-selection__chip {
+        font-size: var(--size-base);
+    }
+
+    .topic-selection__btn-start {
+        font-size: var(--size-lg);
+    }
+
+    .topic-selection__btn-start svg {
+        width: var(--size-2xl);
+        height: var(--size-2xl);
+    }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+    .topic-selection__container {
+        padding: 4rem 6rem;
+    }
+
+    .topic-selection__title {
+        font-size: var(--size-5xl);
+    }
+
+    .topic-selection__subtitle {
+        font-size: var(--size-3xl);
+    }
+
+    .topic-selection__chip {
+        font-size: var(--size-lg);
+    }
+
+    .topic-selection__btn-start {
+        align-self: end;
+        margin-right: 2rem;
+        margin-top: 1rem;
+        font-size: var(--size-xl);
+    }
+
+    .topic-selection__btn-start svg {
+        width: var(--size-3xl);
+        height: var(--size-3xl);
+    }
+}
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */
