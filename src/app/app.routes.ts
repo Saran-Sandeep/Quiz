@@ -21,7 +21,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'home',
+        path: 'landing-page',
         component: LandingPageComponent,
       },
       {
@@ -33,7 +33,7 @@ export const routes: Routes = [
         component: ExamComponent,
       },
       {
-        path: 'results',
+        path: 'result',
         component: ResultComponent,
       },
     ],

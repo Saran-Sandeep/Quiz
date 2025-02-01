@@ -15,14 +15,14 @@
 .header__logo svg {
     width: var(--size-5xl);
     height: var(--size-5xl);
-    fill: var(--color-primary);
-    stroke: var(--color-bg);
+    fill: var(--primary);
+    stroke: var(--background);
 }
 
 .header__logo .title {
     font-size: var(--size-xl);
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--foreground);
 }
 
 .header__nav .btn {

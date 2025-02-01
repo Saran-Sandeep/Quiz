@@ -1,26 +1,44 @@
 <section class="hero section">
   <div class="hero__content container">
     <div class="hero__text">
-      <p class="hero__title">
-        Learn <br />
-        new concepts <br />
-        for each question
-      </p>
-      <p class="hero__subtitle">
-        We will help you prepare for exams and quizes
-      </p>
+      <h1 class="hero__title title">
+        <span class="gradient-text">Learn</span><br />
+        new concepts<br />
+        <span class="highlight">through every question</span>
+      </h1>
+
+      <div class="hero__subtitle-wrapper">
+        <!-- <div class="sparkle">✨</div> -->
+        <p class="hero__subtitle">
+          Master exam preparation with AI-powered quizzes<br />
+          <!-- <span class="stats">5000+ questions across 20+ subjects</span> -->
+        </p>
+      </div>
 
       <div class="hero__actions">
         <button class="btn hero__btn-start" (click)="onStartSolving()">
-          Start solving
+          🚀 Start solving
         </button>
         <button class="btn hero__btn-load-more" (click)="onLearnMore()">
-          Learn more
+          📚 How it works
         </button>
       </div>
+
+      <div class="hero__badges">
+        <div class="badge">⭐ 4.9/5 App Store</div>
+        <div class="badge">🏆 100k+ Learners</div>
+      </div>
     </div>
+
     <div class="hero__img">
-      <img src="/girl__hero.svg" alt="img" />
+      <div class="floating-container">
+        <img
+          src="/girl__hero.svg"
+          alt="Interactive learning interface"
+          class="floating"
+        />
+        <div class="glow-effect"></div>
+      </div>
     </div>
   </div>
 </section>

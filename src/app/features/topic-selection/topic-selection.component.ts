@@ -53,7 +53,8 @@ export class TopicSelectionComponent {
     this._snackBar.open('Only 5 topics can be selected.', 'close', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 1000,
+      duration: 100000,
+      panelClass: ['light-theme'],
     });
   }
 

@@ -1,1 +1,93 @@
+<!-- Add to exam.component.html -->
+<section class="exam section">
+  <div class="exam__container container">
+    <header class="exam__header">
+      <div class="exam__progress-indicator">
+        <div
+          class="exam__progress-bar"
+          [style.width.%]="(currentQuestionIdx / totalQuestions.length) * 100"
+        ></div>
+      </div>
+      <div class="exam__header-body">
+        <div class="exam__question-counter">
+          <span class="exam__current-number"
+            >Question {{ currentQuestionIdx + 1 }}</span
+          >
+          <span class="exam__total-number">/{{ totalQuestions.length }}</span>
+        </div>
+        <div class="exam__timer">
+          <svg class="exam__timer-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 5v7h5v2h-6V5h1m0 15c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"
+            />
+          </svg>
+          <span class="exam__time-remaining">{{ timeRemaining | time }}</span>
+        </div>
+      </div>
+    </header>
 
+    <main class="exam__main">
+      <h1 class="exam__question title">
+        {{ currentQuestion.question }}
+      </h1>
+
+      <div class="exam__options-wrapper">
+        <mat-radio-group [(ngModel)]="selectedOption" class="exam__options">
+          @for (option of currentQuestion.options; track option; let i = $index)
+          {
+          <mat-radio-button class="exam__option" [value]="option">
+            <span class="option-number">{{ alphabetLabels[i] }}</span>
+            <span class="option-text">{{ option }}</span>
+          </mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    </main>
+
+    <footer class="exam__footer">
+      <div class="exam__controls-left">
+        <button
+          class="btn exam__nav-btn"
+          (click)="previousQuestion()"
+          [disabled]="currentQuestionIdx === 0"
+        >
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path
+              d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42z"
+            />
+          </svg>
+          Previous
+        </button>
+      </div>
+
+      <div class="controls-center">
+        <button class="btn exam__action-btn" (click)="clearAnswer()">
+          Clear
+        </button>
+        <button class="btn exam__submit" (click)="onSubmit()">
+          {{ isLastQuestion ? "Finish Exam" : "Submit" }}
+        </button>
+        <button
+          class="btn exam__action-btn"
+          (click)="skipQuestion()"
+          [disabled]="currentQuestionIdx === totalQuestions.length - 1"
+        >
+          Skip
+        </button>
+      </div>
+
+      <div class="controls-right">
+        <button
+          class="btn exam__nav-btn"
+          (click)="nextQuestion()"
+          [disabled]="currentQuestionIdx === totalQuestions.length - 1"
+        >
+          Next
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z" />
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+</section>

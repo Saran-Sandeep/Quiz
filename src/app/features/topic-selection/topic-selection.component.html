@@ -1,34 +1,50 @@
-<!-- TODO: Fix snackbar, fix svg in start quiz btn, make it responsive -->
 <section class="topic-selection section">
   <div class="topic-selection__container container">
-    <p class="topic-selection__title title">Choose your topics for quiz</p>
-    <p class="topic-selection__subtitle">You can select upto 5 topics</p>
-    <div class="topic-selection__chips-filter">
-      @for (topic of topics; track topic) {
-      <div
-        class="topic-selection__chip"
-        (click)="toggleTopic(topic)"
-        [ngClass]="{ 'topic-selection__chip--active': isTopicSelected(topic) }"
-      >
-        {{ topic }}
+    <header class="topic-selection__header">
+      <h1 class="topic-selection__title title">Choose Your Expertise Areas</h1>
+      <p class="topic-selection__subtitle">
+        Select up to 5 topics to personalize your quiz experience
+        <span class="selected-count"
+          >(<span data-selected-count>{{ this.selectedTopics.size }}</span
+          >/5 selected)</span
+        >
+      </p>
+    </header>
+
+    <div class="topic-selection__main">
+      <div class="topic-selection__chips-wrapper">
+        @for (topic of topics; track topic) {
+        <button
+          class="topic-selection__chip"
+          [ngClass]="{
+            'topic-selection__chip--active': isTopicSelected(topic)
+          }"
+          (click)="toggleTopic(topic)"
+        >
+          <span class="chip-text">{{ topic }}</span>
+        </button>
+        }
       </div>
-      }
+
+      <div class="topic-selection__actions">
+        <button class="topic-selection__btn-start btn" (click)="onStartQuiz()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="btn-icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+            />
+          </svg>
+          Begin Challenge
+        </button>
+      </div>
     </div>
-    <button class="topic-selection__btn-start btn" (click)="onStartQuiz()">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z"
-        />
-      </svg>
-      Start Quiz
-    </button>
   </div>
 </section>

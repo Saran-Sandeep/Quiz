@@ -1,23 +1,24 @@
 :root {
-    /* Base colors */
-    --color-primary: #e11d48;
-    --color-primary-light: #fb7185;
-    --color-primary-dark: #9f1239;
-    --color-secondary: #4f46e5;
-
-    /* Neutral */
-    --color-bg: #f8fafc;
-    --color-alt-bg: #e2e8f0;
-
-    /* --color-card-bg: #E6E6FA; */
-
-    /* --color-border: #E2E8F0; */
-
-    --color-text: #333333;
-    --color-alt-text: #475569;
-
-    /* rose rgb(225, 29, 72) */
-    /* indigo rgb(79, 70, 229) */
+    --background: hsl(346, 100%, 97%);
+    --foreground: hsl(347, 5%, 0%);
+    --card: hsl(0, 0%, 95%);
+    --card-foreground: hsl(347, 5%, 10%);
+    --popover: hsl(347, 100%, 95%);
+    --popover-foreground: hsl(347, 100%, 0%);
+    --primary: hsl(347, 77.2%, 49.8%);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --secondary: hsl(347, 30%, 70%);
+    --secondary-foreground: hsl(0, 0%, 0%);
+    --muted: hsl(309, 30%, 85%);
+    --muted-foreground: hsl(347, 5%, 35%);
+    --accent: hsl(309, 30%, 80%);
+    --accent-foreground: hsl(347, 5%, 10%);
+    --destructive: hsl(0, 100%, 30%);
+    --destructive-foreground: hsl(347, 5%, 90%);
+    --border: hsl(347, 30%, 50%);
+    --input: hsl(347, 30%, 18%);
+    --ring: hsl(347, 77.2%, 49.8%);
+    --radius: 0.375rem;
 
     /* sizes  */
     --size-xxs: 0.625rem;
@@ -52,18 +53,27 @@
     /* 160px */
 }
 
-
-.light-mode {
-    --color-bg: #020617;
-    --color-text: #f1f5f9;
-    --color-slate-200: #e2e8f0;
-    --color-slate-400: #94a3b8;
-    --color-slate-600: #475569;
-    --color-slate-800: #1e293b;
-    --color-primary: #e11d48;
-    --color-primary-800: #9f1239;
-    --color-secondary: #4f46e5;
-    --color-yellow: #facc15;
+.dark {
+    --background: hsl(347, 50%, 5%);
+    --foreground: hsl(347, 5%, 90%);
+    --card: hsl(347, 50%, 0%);
+    --card-foreground: hsl(347, 5%, 90%);
+    --popover: hsl(347, 50%, 5%);
+    --popover-foreground: hsl(347, 5%, 90%);
+    --primary: hsl(347, 77.2%, 49.8%);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --secondary: hsl(347, 30%, 10%);
+    --secondary-foreground: hsl(0, 0%, 100%);
+    --muted: hsl(309, 30%, 15%);
+    --muted-foreground: hsl(347, 5%, 60%);
+    --accent: hsl(309, 30%, 15%);
+    --accent-foreground: hsl(347, 5%, 90%);
+    --destructive: hsl(0, 100%, 30%);
+    --destructive-foreground: hsl(347, 5%, 90%);
+    --border: hsl(347, 30%, 18%);
+    --input: hsl(347, 30%, 18%);
+    --ring: hsl(347, 77.2%, 49.8%);
+    --radius: 0.5rem;
 }
 
 * {
@@ -79,8 +89,8 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 img,
@@ -102,11 +112,11 @@ button {
 }
 
 a {
-    color: var(--color-primary);
+    color: var(--primary);
 }
 
 strong {
-    color: var(--color-secondary);
+    color: var(--secondary);
 }
 
 /* Custom Scroll bar */
@@ -119,8 +129,8 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary);
-    outline: 1px solid var(--color-primary);
+    background-color: var(--primary);
+    outline: 1px solid var(--primary);
 }
 
 html,
@@ -147,5 +157,23 @@ body {
     display: flex;
     flex-direction: column;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

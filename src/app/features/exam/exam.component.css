@@ -1,0 +1,238 @@
+.exam {
+    /* min-height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    padding: 2rem;
+}
+
+.exam__container {
+    background-color: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 1.5rem 3rem -1rem rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+}
+
+.exam__progress-indicator {
+    height: 0.375rem;
+    background-color: var(--muted);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.exam__progress-bar {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.exam__header-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.25rem 0.5rem;
+}
+
+.exam__question-counter {
+    font-size: var(--size-base);
+    color: var(--muted-foreground);
+}
+
+.exam__current-number {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.exam__timer {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--muted-foreground);
+}
+
+.exam__timer-icon {
+    width: var(--size-base);
+    height: var(--size-base);
+}
+
+.exam__time-remaining {
+    font-size: var(--size-base);
+    font-weight: 600;
+}
+
+.exam__question {
+    font-size: var(--size-xl);
+    margin: 1.5rem 0;
+    color: var(--foreground);
+    text-align: center;
+}
+
+.exam__options {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0 1rem;
+}
+
+.exam__option {
+    flex: 1;
+    font-size: var(--size-base);
+    transition: all 0.2s ease;
+}
+
+.option-number {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+/* Footer Controls */
+.exam__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.exam__controls-left,
+.controls-center,
+.controls-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Navigation Buttons */
+.exam__nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75em 1.5em;
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+}
+
+.exam__nav-btn:hover:not([disabled]) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.exam__nav-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Action Buttons */
+.exam__action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    transition: all 0.2s ease;
+}
+
+.exam__action-btn:hover:not([disabled]) {
+    background-color: var(--muted);
+}
+
+/* Submit Button */
+.exam__submit {
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.2);
+}
+
+.exam__submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+
+/* Icons */
+.nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .exam__footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .exam__controls-left,
+    .controls-center,
+    .controls-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .exam__nav-btn,
+    .exam__action-btn,
+    .exam__submit {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .controls-center {
+        order: 3;
+        margin-top: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .controls-center {
+        margin: 0 auto;
+    }
+}
+
+
+@media (min-width: 768px) {
+
+    .exam__question {
+        font-size: var(--size-2xl);
+    }
+
+    .exam__options {
+        padding: 0 2.5rem;
+    }
+
+    .exam__option {
+        font-size: var(--size-lg);
+    }
+
+    .exam__submit {
+        width: auto;
+        padding: 1rem 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .exam__container {
+        max-width: 64rem;
+    }
+
+    .exam__question {
+        font-size: var(--size-3xl);
+    }
+
+    /* .exam__option {
+    font-size: var(--size-xl);
+} */
+}
