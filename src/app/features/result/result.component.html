@@ -1,6 +1,60 @@
-<section class="result section">
-  <div class="result__container container">
-    <p class="title result__label">Your score :</p>
-    <p class="result__score">{{ score }}</p>
+<section class="results">
+  <div class="results__container container">
+    <div class="results__content">
+      <div class="results__header">
+        <h1 class="results__title title">Quiz Completed!</h1>
+        <p class="results__subtitle">Here's how you performed</p>
+      </div>
+
+      <div class="results__score-card">
+        <div class="score-ring">
+          <svg class="score-circle" viewBox="0 0 100 100">
+            <circle class="score-background" cx="50" cy="50" r="45" />
+            <circle
+              class="score-progress"
+              cx="50"
+              cy="50"
+              r="45"
+              [style.strokeDasharray]="circumference"
+              [style.strokeDashoffset]="dashOffset"
+            />
+          </svg>
+          <div class="score-text">
+            <span class="score-value">{{ score }}</span>
+            <span class="score-total">/{{ totalQuestions }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="results__stats">
+        <div class="stat-item">
+          <span class="stat-label">Correct Answers</span>
+          <span class="stat-value correct">{{ score }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Wrong Answers</span>
+          <span class="stat-value wrong">{{ totalQuestions - score }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Accuracy</span>
+          <span class="stat-value"
+            >{{ (score / totalQuestions) * 100 | number : "1.0-2" }}%</span
+          >
+        </div>
+      </div>
+
+      <div class="results__image">
+        <img src="/undraw_well-done_kqud.svg" alt="Completion illustration" />
+      </div>
+
+      <div class="results__actions">
+        <button class="btn results__btn-retry" (click)="onRetry()">
+          Try Again
+        </button>
+        <button class="btn results__btn-home" (click)="onHome()">
+          Back to Home
+        </button>
+      </div>
+    </div>
   </div>
 </section>

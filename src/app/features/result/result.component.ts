@@ -1,25 +1,46 @@
 import { Component } from '@angular/core';
-import { ScoreService } from '../../shared/services/score.service';
 import { Subscription } from 'rxjs';
+import { QuizStateService } from '../../shared/services/quiz-state.service';
+import { CommonModule, DecimalPipe } from '@angular/common';
 @Component({
   selector: 'app-result',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './result.component.html',
   styleUrl: './result.component.css',
 })
 export class ResultComponent {
-  score: number = 0;
-  private scoreSubscription!: Subscription;
+  constructor(private quizStateService: QuizStateService) {}
 
-  constructor(private scoreService: ScoreService) {}
+  private scoreSubscription!: Subscription;
+  score: number = 0;
+  correctAnswers: number = 0;
+  wrongAnswers: number = 0;
+  totalQuestions: number = 0;
+
+  radius = 45;
+  circumference = 2 * Math.PI * this.radius;
 
   ngOnInit(): void {
-    this.scoreSubscription = this.scoreService.score$.subscribe((score) => {
-      this.score = score;
+    this.scoreSubscription = this.quizStateService.state$.subscribe((state) => {
+      this.correctAnswers = state.correctAnswers;
+      this.wrongAnswers = state.wrongAnswers;
+      this.totalQuestions = state.totalQuestions;
+      this.score = state.score;
     });
+  }
+
+  get dashOffset(): number {
+    return (
+      this.circumference -
+      (this.score / this.totalQuestions) * this.circumference
+    );
   }
 
   ngOnDestroy(): void {
     this.scoreSubscription.unsubscribe();
   }
+
+  onRetry(): void {}
+
+  onHome(): void {}
 }

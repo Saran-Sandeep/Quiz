@@ -1,13 +1,162 @@
-.result {
+.results {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 
-.result__container {
+.results__container {
+    background-color: var(--card);
+    border-radius: 1rem;
+    box-shadow: 0 1.5rem 3rem -1rem rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    text-align: center;
+}
+
+.results__header {
+    margin-bottom: 2rem;
+}
+
+.results__title {
+    font-size: var(--size-3xl);
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+}
+
+.results__subtitle {
+    font-size: var(--size-lg);
+    color: var(--muted-foreground);
+}
+
+/* Score Ring Animation */
+.score-ring {
+    position: relative;
+    width: 12rem;
+    height: 12rem;
+    margin: 2rem auto;
+}
+
+.score-circle {
+    transform: rotate(-90deg);
+}
+
+.score-background {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 8;
+}
+
+.score-progress {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.score-value {
     font-size: var(--size-4xl);
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.score-total {
+    font-size: var(--size-xl);
+    color: var(--muted-foreground);
+}
+
+/* Stats Grid */
+.results__stats {
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background-color: var(--background);
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    min-width: 8rem;
+}
+
+.stat-label {
+    display: block;
+    font-size: var(--size-sm);
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: var(--size-xl);
+    font-weight: 600;
+}
+
+.stat-value.correct {
+    color: hsl(142, 76%, 36%);
+}
+
+.stat-value.wrong {
+    color: var(--destructive);
+}
+
+/* Image */
+.results__image {
+    width: 16rem;
+    margin: 2rem auto;
+}
+
+/* Action Buttons */
+.results__actions {
+    display: flex;
+    justify-content: center;
     gap: 1rem;
+    margin-top: 2rem;
+}
+
+.results__btn-retry,
+.results__btn-home {
+    min-width: 8rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.results__btn-home {
+    background-color: var(--card);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    box-shadow: none;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+    .results__container {
+        padding: 3rem;
+    }
+
+    .results__title {
+        font-size: var(--size-4xl);
+    }
+
+    .results__stats {
+        gap: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .results__container {
+        padding: 4rem;
+    }
+
+    .results__title {
+        font-size: var(--size-5xl);
+    }
 }

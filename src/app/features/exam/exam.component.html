@@ -36,7 +36,7 @@
           @for (option of currentQuestion.options; track option; let i = $index)
           {
           <mat-radio-button class="exam__option" [value]="option">
-            <span class="option-number">{{ alphabetLabels[i] }}</span>
+            <span class="option-number">{{ i }}</span>
             <span class="option-text">{{ option }}</span>
           </mat-radio-button>
           }

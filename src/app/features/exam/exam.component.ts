@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router } from '@angular/router';
-import { ScoreService } from '../../shared/services/score.service';
 import { CommonModule } from '@angular/common';
 import { TimePipe } from '../../shared/pipes/time.pipe';
+import { QuizStateService } from '../../shared/services/quiz-state.service';
 
 interface Question {
   question: string;
@@ -19,7 +19,10 @@ interface Question {
   styleUrl: './exam.component.css',
 })
 export class ExamComponent implements OnInit, OnDestroy {
-  constructor(private router: Router, private scoreService: ScoreService) {}
+  constructor(
+    private router: Router,
+    private quizStateService: QuizStateService
+  ) {}
 
   totalQuestions: Question[] = [
     {
@@ -65,17 +68,15 @@ export class ExamComponent implements OnInit, OnDestroy {
   ];
 
   currentQuestionIdx: number = 0;
-
   currentQuestion: Question = this.totalQuestions[this.currentQuestionIdx];
-
   selectedOption: string = '';
   score: number = 0;
-
   timeRemaining: number = 600; // 10 minutes in seconds
   private timerInterval: any;
-  alphabetLabels = ['A', 'B', 'C', 'D'];
-  skippedQuestions: number[] = [];
+  skippedQuestions: Question[] = [];
   isLastQuestion: boolean = false;
+  correctlyAnsweredQuestions: Question[] = [];
+  wronglyAnsweredQuestions: Question[] = [];
 
   ngOnInit() {
     this.startTimer();
@@ -113,7 +114,7 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   skipQuestion() {
-    this.skippedQuestions.push(this.currentQuestionIdx);
+    this.skippedQuestions.push();
     this.nextQuestion();
   }
 
@@ -131,16 +132,34 @@ export class ExamComponent implements OnInit, OnDestroy {
       this.currentQuestionIdx === this.totalQuestions.length - 1;
   }
 
+  checkAnswer() {
+    if (this.selectedOption === this.currentQuestion.correct) {
+      this.score += 1;
+      this.correctlyAnsweredQuestions.push(
+        this.totalQuestions[this.currentQuestionIdx]
+      );
+    } else if (this.selectedOption === '') {
+      this.skippedQuestions.push(this.totalQuestions[this.currentQuestionIdx]);
+    } else {
+      this.wronglyAnsweredQuestions.push(
+        this.totalQuestions[this.currentQuestionIdx]
+      );
+    }
+  }
+
   finishExam() {
     clearInterval(this.timerInterval);
-    this.scoreService.setScore(this.score);
+    this.quizStateService.updateQuizState(
+      this.correctlyAnsweredQuestions.length,
+      this.wronglyAnsweredQuestions.length,
+      this.totalQuestions.length,
+      this.score
+    );
     this.router.navigateByUrl('result');
   }
 
   onSubmit() {
-    if (this.selectedOption === this.currentQuestion.correct) {
-      this.score++;
-    }
+    this.checkAnswer();
 
     if (this.isLastQuestion) {
       this.finishExam();
