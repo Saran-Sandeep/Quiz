@@ -4,6 +4,8 @@
     align-items: center;
     padding: 2rem;
     background: var(--background);
+    height: 100vh;
+    height: 100svh;
 }
 
 .login__container {
@@ -94,7 +96,7 @@
     fill: var(--primary-foreground);
 }
 
-.login__footer-btn svg:hover {
+.login__footer-btn:hover svg {
     fill: var(--primary);
 }
 
