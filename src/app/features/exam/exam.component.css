@@ -114,16 +114,14 @@
     align-items: center;
     gap: 0.25rem;
     padding: 0.75em 1.5em;
-    border-radius: var(--radius);
-    font-weight: 600;
-    transition: all 0.2s ease;
     background-color: var(--card);
-    border: 1px solid var(--border);
-    color: var(--foreground);
+    color: var(--card-foreground);
+    box-shadow: 0 0.5rem 1rem rgba(15, 23, 42, 0.15),
+        0 0.25rem 0.5rem rgba(15, 23, 42, 0.1);
+    transition: color 0.3s, transform 0.3s;
 }
 
 .exam__nav-btn:hover:not([disabled]) {
-    border-color: var(--primary);
     color: var(--primary);
 }
 
@@ -135,32 +133,14 @@
 /* Action Buttons */
 .exam__action-btn {
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    color: var(--foreground);
-    transition: all 0.2s ease;
-}
 
-.exam__action-btn:hover:not([disabled]) {
-    background-color: var(--muted);
 }
 
 /* Submit Button */
 .exam__submit {
     padding: 0.75rem 2rem;
-    border-radius: var(--radius);
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.2);
 }
 
-.exam__submit:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
-}
 
 /* Icons */
 .nav-icon {

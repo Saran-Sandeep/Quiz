@@ -16,10 +16,10 @@
       </div>
 
       <div class="hero__actions">
-        <button class="btn hero__btn-start" (click)="onStartSolving()">
+        <button class="active-btn hero__btn-start" (click)="onStartSolving()">
           🚀 Start solving
         </button>
-        <button class="btn hero__btn-load-more" (click)="onLearnMore()">
+        <button class="active-btn hero__btn-load-more" (click)="onHowItWorks()">
           📚 How it works
         </button>
       </div>
@@ -39,6 +39,86 @@
         />
         <div class="glow-effect"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- how-it-works.component.html -->
+  <div class="how-it-works" [class.show]="isModalOpen">
+    <div class="how-it-works__content">
+      <!-- Header -->
+      <header class="how-it-works__header">
+        <h2 class="how-it-works__title title">How QuizQuest Works</h2>
+        <button class="how-it-works__close-btn" (click)="closeModal()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="how-it-works__close-svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <!-- Steps -->
+      <div class="how-it-works__steps">
+        <div class="step">
+          <div class="step__number">1</div>
+          <div class="step__content">
+            <h3 class="step__title">Choose Your Topics</h3>
+            <p class="step__description">
+              Select up to 5 topics from our comprehensive list to customize
+              your quiz experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">2</div>
+          <div class="step__content">
+            <h3 class="step__title">Answer Questions</h3>
+            <p class="step__description">
+              Take on carefully curated questions with our intuitive interface.
+              Use navigation controls to move between questions.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">3</div>
+          <div class="step__content">
+            <h3 class="step__title">Track Progress</h3>
+            <p class="step__description">
+              Monitor your progress with our real-time progress bar and timer.
+              Skip questions and return to them later.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">4</div>
+          <div class="step__content">
+            <h3 class="step__title">View Results</h3>
+            <p class="step__description">
+              Get detailed insights about your performance with our
+              comprehensive results dashboard.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="how-it-works__footer">
+        <button class="btn" (click)="startQuiz()">
+          Start Your Quiz Journey
+        </button>
+      </footer>
     </div>
   </div>
 </section>

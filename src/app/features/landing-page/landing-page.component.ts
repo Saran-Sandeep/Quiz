@@ -10,9 +10,25 @@ import { Router } from '@angular/router';
 export class LandingPageComponent {
   constructor(private router: Router) {}
 
+  isModalOpen = false;
+
   onStartSolving(): void {
     this.router.navigateByUrl('topic-selection');
   }
 
-  onLearnMore(): void {}
+  onHowItWorks(): void {
+    // openModal
+    this.isModalOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    document.body.style.overflow = 'auto';
+  }
+
+  startQuiz() {
+    this.closeModal();
+    this.router.navigateByUrl('topic-selection');
+  }
 }

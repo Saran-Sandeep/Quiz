@@ -30,7 +30,7 @@
     --destructive-foreground: hsl(347, 5%, 90%);
     --border: hsl(347, 30%, 50%);
     --input: hsl(347, 30%, 18%);
-    --ring: hsl(347, 77.2%, 49.8%);
+    
     --radius: 0.375rem; */
 
     /* sizes  */
@@ -129,7 +129,7 @@ a {
 }
 
 strong {
-    color: var(--secondary);
+    color: var(--accent);
 }
 
 /* Custom Scroll bar */

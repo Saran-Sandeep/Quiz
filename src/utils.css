@@ -20,6 +20,7 @@
     font-family: "Inter", "Roboto", sans-serif;
 }
 
+.active-btn,
 .btn {
     display: inline-block;
     font-weight: 600;
@@ -32,13 +33,27 @@
     text-transform: capitalize;
     box-shadow: 0 10px 20px rgba(225, 29, 72, 0.5),
         0 6px 6px rgba(225, 29, 72, 0.5), 0 0 100px -10px var(--primary);
+    transition: all 0.3s;
+}
+
+.active-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(225, 29, 72, 0.25),
+        0 10px 10px rgba(225, 29, 72, 0.22), 0 0 120px -10px var(--primary);
+}
+
+.btn {
+    background-color: var(--card);
+    color: var(--card-foreground);
+    box-shadow: 0 0.5rem 1rem rgba(15, 23, 42, 0.15),
+        0 0.25rem 0.5rem rgba(15, 23, 42, 0.1);
     transition: transform 0.3s;
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(225, 29, 72, 0.25),
-        0 10px 10px rgba(225, 29, 72, 0.22), 0 0 120px -10px var(--primary);
+    box-shadow: 0 0.5rem 1rem rgba(15, 23, 42, 0.15),
+        0 0.25rem 0.5rem rgba(15, 23, 42, 0.1);
 }
 
 .container {

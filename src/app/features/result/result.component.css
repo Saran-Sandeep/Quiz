@@ -129,12 +129,12 @@
     padding: 0.75rem 1.5rem;
 }
 
-.results__btn-home {
+/* .results__btn-home {
     background-color: var(--card);
     color: var(--foreground);
     border: 1px solid var(--border);
     box-shadow: none;
-}
+} */
 
 /* Responsive Adjustments */
 @media (min-width: 768px) {
