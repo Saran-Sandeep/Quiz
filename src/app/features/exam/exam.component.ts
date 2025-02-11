@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TimePipe } from '../../shared/pipes/time.pipe';
 import { QuizStateService } from '../../shared/services/quiz-state.service';
+import { QuizQuestionsService } from '../../shared/services/quiz-questions.service';
 
 interface Question {
   question: string;
@@ -21,54 +22,14 @@ interface Question {
 export class ExamComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
-    private quizStateService: QuizStateService
+    private quizStateService: QuizStateService,
+    private quizQuestionsService: QuizQuestionsService
   ) {}
 
-  totalQuestions: Question[] = [
-    {
-      question: "Which language is known as the 'mother of all languages'?",
-      options: ['C', 'Assembly', 'Fortran', 'COBOL'],
-      correct: 'Fortran',
-    },
-    {
-      question: 'What does TypeScript add to JavaScript?',
-      options: [
-        'Static Typing',
-        'Garbage Collection',
-        'Asynchronous Execution',
-        'Multithreading',
-      ],
-      correct: 'Static Typing',
-    },
-    {
-      question: 'Which SQL command retrieves data from a database?',
-      options: ['INSERT', 'SELECT', 'UPDATE', 'DELETE'],
-      correct: 'SELECT',
-    },
-    {
-      question: 'Which database is NoSQL?',
-      options: ['MySQL', 'PostgreSQL', 'MongoDB', 'Oracle'],
-      correct: 'MongoDB',
-    },
-    {
-      question: 'Which HTML tag is used for hyperlinks?',
-      options: ['<link>', '<href>', '<a>', '<url>'],
-      correct: '<a>',
-    },
-    {
-      question: 'What does AJAX stand for?',
-      options: [
-        'Asynchronous JavaScript and XML',
-        'Automated Java and XML',
-        'Advanced JavaScript and XHTML',
-        'Asynchronous JSON and XML',
-      ],
-      correct: 'Asynchronous JavaScript and XML',
-    },
-  ];
+  totalQuestions: Question[] = [];
 
   currentQuestionIdx: number = 0;
-  currentQuestion: Question = this.totalQuestions[this.currentQuestionIdx];
+  currentQuestion!: Question;
   selectedOption: string = '';
   score: number = 0;
   timeRemaining: number = 600; // 10 minutes in seconds
@@ -80,11 +41,27 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startTimer();
-    this.updateLastQuestionStatus();
+    this.fetchQuestions();
   }
 
   ngOnDestroy() {
     clearInterval(this.timerInterval);
+  }
+
+  fetchQuestions(): void {
+    this.quizQuestionsService.fetchQuestions().subscribe({
+      next: (data: Question[]) => {
+        this.totalQuestions = data;
+      },
+      error: (error) => {
+        console.error('Error fetching questions:', error);
+      },
+      complete: () => {
+        console.log('Questions fetched successfully');
+        this.updateLastQuestionStatus();
+        this.updateCurrentQuestion();
+      },
+    });
   }
 
   startTimer() {

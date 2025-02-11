@@ -1,59 +1,260 @@
-# Quiz
+# QuizQuest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+A topic-focused quiz application built with Angular that helps users test and improve their knowledge in specific areas.
 
-## Development server
+## Overview
 
-To start a local development server, run:
+QuizQuest is a frontend-only quiz application that allows users to:
 
-```bash
+- Select a specific topic of interest
+- Take a timed quiz with multiple-choice questions
+- Track their progress in real-time
+- View detailed performance analysis
+
+## Tech Stack
+
+- Angular 19
+- Angular Material 19
+- TypeScript
+- CSS3
+- HTML5
+
+## Features
+
+### Authentication
+
+- Login/Signup functionality (Frontend implementation)
+- Form validation
+- Error handling
+
+### Quiz Flow
+
+1. Topic Selection
+
+   - Single topic selection
+   - Topic preview
+   - Clear selection option
+
+2. Quiz Interface
+
+   - Multiple choice questions
+   - Timer functionality
+   - Navigation controls (Previous, Next, Skip)
+   - Progress tracking
+
+3. Results Analysis
+   - Score visualization
+   - Performance metrics
+   - Retry options
+
+## Project Structure
+
+```
+
+quizquest/
+├── src/
+│ ├── app/
+│ │ ├── components/
+│ │ │ ├── auth/
+│ │ │ │ ├── login/
+│ │ │ │ └── signup/
+│ │ │ ├── landing/
+│ │ │ ├── how-it-works/
+│ │ │ ├── topic-selection/
+│ │ │ ├── quiz/
+│ │ │ └── results/
+│ │ ├── shared/
+│ │ │ ├── services/
+│ │ │ ├── pipes/
+│ │ │ └── interfaces/
+│ │ └── app.component.ts
+│ ├── assets/
+│ └── styles/
+└── README.md
+
+```
+
+## Application Flow
+
+```
+
+Login/Signup → Landing Page → Topic Selection → Quiz → Results
+↓
+How It Works
+
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (Latest LTS version)
+- npm (Latest version)
+- Angular CLI (v19)
+
+### Installation
+
+1. Clone the repository
+
+```
+
+git clone https://github.com/Saran-Sandeep/Quiz.git
+
+```
+
+2. Install dependencies
+
+```
+
+cd quizquest
+npm install
+
+```
+
+3. Start the development server
+
+```
+
 ng serve
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+4. Navigate to `http://localhost:4200`
 
-## Code scaffolding
+## Component Documentation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Auth Component
 
-```bash
-ng generate component component-name
-```
+- Handles user authentication
+- Form validation using Angular Reactive Forms
+- Error message display
+- Navigation to landing page
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Landing Component
 
-```bash
-ng generate --help
-```
+- Welcome screen
+- Navigation to topic selection
+- Access to "How It Works" modal
+
+### Topic Selection Component
+
+- Single topic selection interface
+- Topic preview
+- Start quiz button
+- Clear selection option
+
+### Quiz Component
+
+- Question display
+- Multiple choice options
+- Timer implementation
+- Navigation controls
+- Progress tracking
+
+### Results Component
+
+- Score display
+- Performance metrics
+- Retry option
+- Back to topics option
+
+## Services
+
+### QuizStateService
+
+Manages the application state including:
+
+- Selected topic
+- Quiz progress
+- Score calculation
+- Results storage
+
+### AuthService
+
+Handles authentication state:
+
+- Login state
+- User session
+- Auth guards
+
+## Development Guidelines
+
+### Code Style
+
+- Follow Angular style guide
+- Use TypeScript strict mode
+- Implement proper component lifecycle hooks
+- Maintain consistent naming conventions
+
+### CSS Guidelines
+
+- Use BEM naming convention
+- Maintain global variables
+- Follow mobile-first approach
+- Use responsive design principles
+
+### Component Guidelines
+
+- Keep components focused and maintainable
+- Implement proper error handling
+- Use Angular Material components effectively
+- Follow accessibility guidelines
 
 ## Building
 
-To build the project run:
-
-```bash
-ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+ng build --configuration production
 
-## Running unit tests
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Testing
 
-```bash
+```
+
 ng test
+
 ```
 
-## Running end-to-end tests
+## Contributing
 
-For end-to-end (e2e) testing, run:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add YourFeature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
 
-```bash
-ng e2e
-```
+## Screenshots
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Login Page
 
-## Additional Resources
+[Login Screenshot]
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Landing Page
+
+[Landing Screenshot]
+
+### Topic Selection
+
+[Topic Selection Screenshot]
+
+### Quiz Interface
+
+[Quiz Screenshot]
+
+### Results Page
+
+[Results Screenshot]
+
+## Future Enhancements
+
+- Backend integration
+- User profile management
+- Progress tracking across sessions
+- Detailed analytics
+- Social sharing features
+
+## Contact
+
+Your Name - [saransandeepyedla03@gmail.com]
+Project Link: []()
