@@ -49,6 +49,6 @@ export class ResultComponent {
   }
 
   onHome(): void {
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('landing-page');
   }
 }
