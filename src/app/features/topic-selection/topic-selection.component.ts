@@ -24,7 +24,7 @@ export class TopicSelectionComponent {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  selectedTopicsLimit: number = 1;
+  __selectedTopicsLimit__: number = 1;
   topics: string[] = [
     'Programming Languages',
     'Data Structures',
@@ -42,7 +42,7 @@ export class TopicSelectionComponent {
   toggleTopic(topic: string): void {
     if (this.selectedTopics.has(topic)) {
       this.selectedTopics.delete(topic);
-    } else if (this.selectedTopics.size < this.selectedTopicsLimit) {
+    } else if (this.selectedTopics.size < this.__selectedTopicsLimit__) {
       this.selectedTopics.add(topic);
     } else {
       this.openSnackBar();
@@ -55,7 +55,7 @@ export class TopicSelectionComponent {
 
   openSnackBar(): void {
     this._snackBar.open(
-      `Only ${this.selectedTopicsLimit} topics can be selected.`,
+      `Only ${this.__selectedTopicsLimit__} topics can be selected.`,
       'close',
       {
         horizontalPosition: this.horizontalPosition,
