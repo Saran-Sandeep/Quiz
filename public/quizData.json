@@ -185,5 +185,193 @@
       "options": ["Google", "Microsoft", "Amazon", "IBM"],
       "correct": "Google"
     }
+  ],
+  "Cybersecurity": [
+    {
+      "question": "What does the acronym VPN stand for?",
+      "options": [
+        "Virtual Private Network",
+        "Virtual Personal Network",
+        "Very Private Network",
+        "Verified Personal Network"
+      ],
+      "correct": "Virtual Private Network"
+    },
+    {
+      "question": "What is the purpose of a firewall in a network?",
+      "options": [
+        "To monitor network traffic",
+        "To block unauthorized access",
+        "To speed up internet connections",
+        "To provide wireless connectivity"
+      ],
+      "correct": "To block unauthorized access"
+    },
+    {
+      "question": "Which of the following is a type of malware?",
+      "options": ["Virus", "Firewall", "Router", "Switch"],
+      "correct": "Virus"
+    },
+    {
+      "question": "What does the term 'phishing' refer to?",
+      "options": [
+        "A type of online scam",
+        "A method of securing data",
+        "A type of encryption",
+        "A network protocol"
+      ],
+      "correct": "A type of online scam"
+    },
+    {
+      "question": "What is a common method for securing a computer system?",
+      "options": ["Encryption", "Decryption", "Defragmentation", "Formatting"],
+      "correct": "Encryption"
+    }
+  ],
+  "AI & Machine Learning": [
+    {
+      "question": "What is the primary goal of artificial intelligence?",
+      "options": [
+        "To create machines that can think and learn",
+        "To create faster computers",
+        "To reduce energy consumption",
+        "To improve internet connectivity"
+      ],
+      "correct": "To create machines that can think and learn"
+    },
+    {
+      "question": "Which of the following is a type of machine learning?",
+      "options": [
+        "Supervised Learning",
+        "Quantum Computing",
+        "Cloud Computing",
+        "Blockchain"
+      ],
+      "correct": "Supervised Learning"
+    },
+    {
+      "question": "What does NLP stand for in the context of AI?",
+      "options": [
+        "Natural Language Processing",
+        "Neural Learning Program",
+        "Network Learning Protocol",
+        "Node Level Programming"
+      ],
+      "correct": "Natural Language Processing"
+    },
+    {
+      "question": "Which algorithm is commonly used in deep learning?",
+      "options": [
+        "Neural Networks",
+        "Sorting Algorithms",
+        "Search Algorithms",
+        "Compression Algorithms"
+      ],
+      "correct": "Neural Networks"
+    },
+    {
+      "question": "What is a key advantage of using machine learning?",
+      "options": [
+        "Automated data analysis",
+        "Manual data entry",
+        "Increased hardware costs",
+        "Longer processing times"
+      ],
+      "correct": "Automated data analysis"
+    }
+  ],
+  "DevOps": [
+    {
+      "question": "What does the term 'CI/CD' stand for?",
+      "options": [
+        "Continuous Integration/Continuous Deployment",
+        "Computer Integration/Computer Development",
+        "Continuous Improvement/Continuous Delivery",
+        "Computer Installation/Computer Deployment"
+      ],
+      "correct": "Continuous Integration/Continuous Deployment"
+    },
+    {
+      "question": "Which tool is commonly used for containerization in DevOps?",
+      "options": ["Docker", "Git", "Jenkins", "Kubernetes"],
+      "correct": "Docker"
+    },
+    {
+      "question": "What is the primary goal of DevOps?",
+      "options": [
+        "To improve collaboration between development and operations teams",
+        "To increase hardware usage",
+        "To reduce software costs",
+        "To enhance security protocols"
+      ],
+      "correct": "To improve collaboration between development and operations teams"
+    },
+    {
+      "question": "Which of the following is a DevOps practice?",
+      "options": [
+        "Continuous Monitoring",
+        "Manual Testing",
+        "Waterfall Development",
+        "Isolated Development"
+      ],
+      "correct": "Continuous Monitoring"
+    },
+    {
+      "question": "What does 'Infrastructure as Code' (IaC) refer to?",
+      "options": [
+        "Managing infrastructure through code",
+        "Manual configuration of servers",
+        "Using physical hardware for development",
+        "Networking hardware setups"
+      ],
+      "correct": "Managing infrastructure through code"
+    }
+  ],
+  "Software Engineering": [
+    {
+      "question": "What is the main purpose of software engineering?",
+      "options": [
+        "To design, develop, and maintain software applications",
+        "To repair hardware devices",
+        "To configure network settings",
+        "To design physical structures"
+      ],
+      "correct": "To design, develop, and maintain software applications"
+    },
+    {
+      "question": "Which software development methodology emphasizes iterative progress?",
+      "options": ["Agile", "Waterfall", "V-Model", "RAD"],
+      "correct": "Agile"
+    },
+    {
+      "question": "What does 'OOP' stand for in software engineering?",
+      "options": [
+        "Object-Oriented Programming",
+        "Operational Object Protocol",
+        "Optical Output Processing",
+        "Open Operating Platform"
+      ],
+      "correct": "Object-Oriented Programming"
+    },
+    {
+      "question": "Which of the following is a software design pattern?",
+      "options": [
+        "Singleton",
+        "Multithreading",
+        "Quantum Computing",
+        "Virtualization"
+      ],
+      "correct": "Singleton"
+    },
+    {
+      "question": "What is the purpose of a version control system?",
+      "options": [
+        "To manage changes to source code over time",
+        "To enhance software performance",
+        "To encrypt data",
+        "To manage hardware configurations"
+      ],
+      "correct": "To manage changes to source code over time"
+    }
   ]
 }
