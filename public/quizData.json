@@ -1,64 +1,189 @@
 {
-  "topics": [
-    "Programming Languages",
-    "Data Structures",
-    "Databases",
-    "Operating Systems",
-    "Web Development",
-    "Cloud Computing",
-    "Cybersecurity",
-    "AI & Machine Learning",
-    "DevOps",
-    "Software Engineering"
+  "Programming Languages": [
+    {
+      "question": "Which language is known as the 'mother of all languages'?",
+      "options": ["C", "Assembly", "Fortran", "COBOL"],
+      "correct": "Fortran"
+    },
+    {
+      "question": "What does TypeScript add to JavaScript?",
+      "options": [
+        "Static Typing",
+        "Garbage Collection",
+        "Multithreading",
+        "Better Performance"
+      ],
+      "correct": "Static Typing"
+    },
+    {
+      "question": "Which language is primarily used for iOS app development?",
+      "options": ["Swift", "Java", "Kotlin", "C#"],
+      "correct": "Swift"
+    },
+    {
+      "question": "What is the main use of Python?",
+      "options": [
+        "Game Development",
+        "Web Development",
+        "Machine Learning",
+        "All of the above"
+      ],
+      "correct": "All of the above"
+    },
+    {
+      "question": "Which language is used for Android development?",
+      "options": ["Swift", "Java", "C++", "Python"],
+      "correct": "Java"
+    }
   ],
-  "selectedTopics": ["Programming Languages", "Databases", "Web Development"],
-
-  "questions": {
-    "Programming Languages": [
-      {
-        "question": "Which language is known as the 'mother of all languages'?",
-        "options": ["C", "Assembly", "Fortran", "COBOL"],
-        "correct": "Fortran"
-      },
-      {
-        "question": "What does TypeScript add to JavaScript?",
-        "options": [
-          "Static Typing",
-          "Garbage Collection",
-          "Asynchronous Execution",
-          "Multithreading"
-        ],
-        "correct": "Static Typing"
-      }
-    ],
-    "Databases": [
-      {
-        "question": "Which SQL command retrieves data from a database?",
-        "options": ["INSERT", "SELECT", "UPDATE", "DELETE"],
-        "correct": "SELECT"
-      },
-      {
-        "question": "Which database is NoSQL?",
-        "options": ["MySQL", "PostgreSQL", "MongoDB", "Oracle"],
-        "correct": "MongoDB"
-      }
-    ],
-    "Web Development": [
-      {
-        "question": "Which HTML tag is used for hyperlinks?",
-        "options": ["<link>", "<href>", "<a>", "<url>"],
-        "correct": "<a>"
-      },
-      {
-        "question": "What does AJAX stand for?",
-        "options": [
-          "Asynchronous JavaScript and XML",
-          "Automated Java and XML",
-          "Advanced JavaScript and XHTML",
-          "Asynchronous JSON and XML"
-        ],
-        "correct": "Asynchronous JavaScript and XML"
-      }
-    ]
-  }
+  "Data Structures": [
+    {
+      "question": "Which data structure follows FIFO order?",
+      "options": ["Stack", "Queue", "Linked List", "Heap"],
+      "correct": "Queue"
+    },
+    {
+      "question": "What is the worst-case time complexity of quicksort?",
+      "options": ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+      "correct": "O(n^2)"
+    },
+    {
+      "question": "Which data structure uses LIFO order?",
+      "options": ["Queue", "Array", "Stack", "Heap"],
+      "correct": "Stack"
+    },
+    {
+      "question": "What is the time complexity of binary search?",
+      "options": ["O(n)", "O(n log n)", "O(log n)", "O(1)"],
+      "correct": "O(log n)"
+    },
+    {
+      "question": "Which of the following is a self-balancing tree?",
+      "options": ["Binary Search Tree", "AVL Tree", "Graph", "Trie"],
+      "correct": "AVL Tree"
+    }
+  ],
+  "Databases": [
+    {
+      "question": "Which SQL command retrieves data from a database?",
+      "options": ["INSERT", "SELECT", "UPDATE", "DELETE"],
+      "correct": "SELECT"
+    },
+    {
+      "question": "Which database is a NoSQL database?",
+      "options": ["MySQL", "PostgreSQL", "MongoDB", "Oracle"],
+      "correct": "MongoDB"
+    },
+    {
+      "question": "What does ACID stand for in databases?",
+      "options": [
+        "Automated, Consistent, Integrated, Durable",
+        "Atomicity, Consistency, Isolation, Durability",
+        "All Columns Indexed Database",
+        "None of the above"
+      ],
+      "correct": "Atomicity, Consistency, Isolation, Durability"
+    },
+    {
+      "question": "Which SQL clause is used to filter records?",
+      "options": ["WHERE", "HAVING", "ORDER BY", "GROUP BY"],
+      "correct": "WHERE"
+    },
+    {
+      "question": "Which database model is based on tables?",
+      "options": ["Relational", "Hierarchical", "Graph", "Document"],
+      "correct": "Relational"
+    }
+  ],
+  "Operating Systems": [
+    {
+      "question": "Which OS is open-source?",
+      "options": ["Windows", "MacOS", "Linux", "None"],
+      "correct": "Linux"
+    },
+    {
+      "question": "Which memory management technique divides memory into fixed-sized blocks?",
+      "options": ["Paging", "Segmentation", "Fragmentation", "Swapping"],
+      "correct": "Paging"
+    },
+    {
+      "question": "Which OS scheduling algorithm is non-preemptive?",
+      "options": ["Round Robin", "FCFS", "SJF", "Priority"],
+      "correct": "FCFS"
+    },
+    {
+      "question": "Which file system is used in Windows?",
+      "options": ["EXT4", "NTFS", "HFS+", "FAT32"],
+      "correct": "NTFS"
+    },
+    {
+      "question": "Which of these is not an OS?",
+      "options": ["Windows", "Linux", "Ubuntu", "MacOS"],
+      "correct": "Ubuntu"
+    }
+  ],
+  "Web Development": [
+    {
+      "question": "Which HTML tag is used for hyperlinks?",
+      "options": ["<link>", "<href>", "<a>", "<url>"],
+      "correct": "<a>"
+    },
+    {
+      "question": "What does AJAX stand for?",
+      "options": [
+        "Asynchronous JavaScript and XML",
+        "Automated Java and XML",
+        "Advanced JavaScript and XHTML",
+        "Asynchronous JSON and XML"
+      ],
+      "correct": "Asynchronous JavaScript and XML"
+    },
+    {
+      "question": "Which CSS property is used to change text color?",
+      "options": ["font-color", "color", "text-color", "background-color"],
+      "correct": "color"
+    },
+    {
+      "question": "What is the latest version of JavaScript?",
+      "options": ["ES5", "ES6", "ES7", "ESNext"],
+      "correct": "ESNext"
+    },
+    {
+      "question": "Which of these is not a JavaScript framework?",
+      "options": ["React", "Angular", "Vue", "Django"],
+      "correct": "Django"
+    }
+  ],
+  "Cloud Computing": [
+    {
+      "question": "Which company provides AWS?",
+      "options": ["Google", "Amazon", "Microsoft", "IBM"],
+      "correct": "Amazon"
+    },
+    {
+      "question": "Which cloud model provides infrastructure as a service?",
+      "options": ["IaaS", "PaaS", "SaaS", "FaaS"],
+      "correct": "IaaS"
+    },
+    {
+      "question": "Which of these is a cloud computing platform?",
+      "options": ["AWS", "Azure", "Google Cloud", "All of the above"],
+      "correct": "All of the above"
+    },
+    {
+      "question": "What does 'scalability' mean in cloud computing?",
+      "options": [
+        "Increasing storage",
+        "Increasing compute power",
+        "Handling more load",
+        "All of the above"
+      ],
+      "correct": "All of the above"
+    },
+    {
+      "question": "Which company owns Google Cloud?",
+      "options": ["Google", "Microsoft", "Amazon", "IBM"],
+      "correct": "Google"
+    }
+  ]
 }
