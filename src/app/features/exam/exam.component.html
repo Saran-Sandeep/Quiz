@@ -1,4 +1,5 @@
 <!-- Add to exam.component.html -->
+@if(totalQuestions.length >= 1){
 <section class="exam section">
   <div class="exam__container container">
     <header class="exam__header">
@@ -33,8 +34,7 @@
 
       <div class="exam__options-wrapper">
         <mat-radio-group [(ngModel)]="selectedOption" class="exam__options">
-          @for (option of currentQuestion.options; track option; let i = $index)
-          {
+          @for (option of currentQuestion.options; track i; let i = $index) {
           <mat-radio-button class="exam__option" [value]="option">
             <!-- <span class="option-number">{{ i + 1 }}</span> -->
             <span class="option-text">{{ option }}</span>
@@ -65,7 +65,11 @@
           Clear
         </button>
         <button class="active-btn exam__submit" (click)="onSubmit()">
-          {{ isLastQuestion ? "Finish Exam" : "Submit" }}
+          {{
+            this.currentQuestionIdx > this.totalQuestions.length - 1
+              ? "Finish Exam"
+              : "Submit"
+          }}
         </button>
         <button
           class="btn exam__action-btn"
@@ -91,3 +95,4 @@
     </footer>
   </div>
 </section>
+}

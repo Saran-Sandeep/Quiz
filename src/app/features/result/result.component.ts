@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { QuizStateService } from '../../shared/services/quiz-state.service';
 import { CommonModule, DecimalPipe } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-result',
   imports: [CommonModule],
@@ -9,7 +10,10 @@ import { CommonModule, DecimalPipe } from '@angular/common';
   styleUrl: './result.component.css',
 })
 export class ResultComponent {
-  constructor(private quizStateService: QuizStateService) {}
+  constructor(
+    private quizStateService: QuizStateService,
+    private router: Router
+  ) {}
 
   private scoreSubscription!: Subscription;
   score: number = 0;
@@ -40,7 +44,11 @@ export class ResultComponent {
     this.scoreSubscription.unsubscribe();
   }
 
-  onRetry(): void {}
+  onRetry(): void {
+    this.router.navigateByUrl('topic-selection');
+  }
 
-  onHome(): void {}
+  onHome(): void {
+    this.router.navigateByUrl('landing-page');
+  }
 }

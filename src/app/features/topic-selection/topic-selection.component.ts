@@ -7,6 +7,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { QuizQuestionsService } from '../../shared/services/quiz-questions.service';
 
 @Component({
   selector: 'app-topic-selection',
@@ -15,11 +16,15 @@ import { Router } from '@angular/router';
   styleUrl: './topic-selection.component.css',
 })
 export class TopicSelectionComponent {
-  constructor(private _snackBar: MatSnackBar, private router: Router) {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private quizQuestionService: QuizQuestionsService
+  ) {}
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-
+  __selectedTopicsLimit__: number = 1;
   topics: string[] = [
     'Programming Languages',
     'Data Structures',
@@ -32,13 +37,12 @@ export class TopicSelectionComponent {
     'DevOps',
     'Software Engineering',
   ];
-
   selectedTopics: Set<string> = new Set();
 
   toggleTopic(topic: string): void {
     if (this.selectedTopics.has(topic)) {
       this.selectedTopics.delete(topic);
-    } else if (this.selectedTopics.size < 5) {
+    } else if (this.selectedTopics.size < this.__selectedTopicsLimit__) {
       this.selectedTopics.add(topic);
     } else {
       this.openSnackBar();
@@ -50,15 +54,19 @@ export class TopicSelectionComponent {
   }
 
   openSnackBar(): void {
-    this._snackBar.open('Only 5 topics can be selected.', 'close', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 100000,
-      panelClass: ['light-theme'],
-    });
+    this._snackBar.open(
+      `Only ${this.__selectedTopicsLimit__} topics can be selected.`,
+      'close',
+      {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: 1000,
+      }
+    );
   }
 
   onStartQuiz(): void {
+    this.quizQuestionService.setSelectedTopic([...this.selectedTopics]);
     this.router.navigateByUrl('exam');
   }
 }

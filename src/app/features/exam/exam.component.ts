@@ -5,11 +5,16 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TimePipe } from '../../shared/pipes/time.pipe';
 import { QuizStateService } from '../../shared/services/quiz-state.service';
+import { QuizQuestionsService } from '../../shared/services/quiz-questions.service';
 
 interface Question {
   question: string;
   options: string[];
   correct: string;
+}
+
+interface Answer extends Question {
+  selectedOption: string;
 }
 
 @Component({
@@ -19,72 +24,66 @@ interface Question {
   styleUrl: './exam.component.css',
 })
 export class ExamComponent implements OnInit, OnDestroy {
-  constructor(
-    private router: Router,
-    private quizStateService: QuizStateService
-  ) {}
-
-  totalQuestions: Question[] = [
-    {
-      question: "Which language is known as the 'mother of all languages'?",
-      options: ['C', 'Assembly', 'Fortran', 'COBOL'],
-      correct: 'Fortran',
-    },
-    {
-      question: 'What does TypeScript add to JavaScript?',
-      options: [
-        'Static Typing',
-        'Garbage Collection',
-        'Asynchronous Execution',
-        'Multithreading',
-      ],
-      correct: 'Static Typing',
-    },
-    {
-      question: 'Which SQL command retrieves data from a database?',
-      options: ['INSERT', 'SELECT', 'UPDATE', 'DELETE'],
-      correct: 'SELECT',
-    },
-    {
-      question: 'Which database is NoSQL?',
-      options: ['MySQL', 'PostgreSQL', 'MongoDB', 'Oracle'],
-      correct: 'MongoDB',
-    },
-    {
-      question: 'Which HTML tag is used for hyperlinks?',
-      options: ['<link>', '<href>', '<a>', '<url>'],
-      correct: '<a>',
-    },
-    {
-      question: 'What does AJAX stand for?',
-      options: [
-        'Asynchronous JavaScript and XML',
-        'Automated Java and XML',
-        'Advanced JavaScript and XHTML',
-        'Asynchronous JSON and XML',
-      ],
-      correct: 'Asynchronous JavaScript and XML',
-    },
-  ];
-
-  currentQuestionIdx: number = 0;
-  currentQuestion: Question = this.totalQuestions[this.currentQuestionIdx];
-  selectedOption: string = '';
-  score: number = 0;
-  timeRemaining: number = 600; // 10 minutes in seconds
-  private timerInterval: any;
+  totalQuestions: Question[] = [];
+  answerArray: Answer[] = [];
   skippedQuestions: Question[] = [];
-  isLastQuestion: boolean = false;
   correctlyAnsweredQuestions: Question[] = [];
   wronglyAnsweredQuestions: Question[] = [];
 
+  currentQuestionIdx: number = 0;
+  currentQuestion!: Question;
+  selectedOption!: string;
+  score: number = 0;
+  timeRemaining: number = 600; // 10 minutes in seconds
+  private timerInterval: any;
+
+  constructor(
+    private router: Router,
+    private quizStateService: QuizStateService,
+    private quizQuestionsService: QuizQuestionsService
+  ) {}
+
+  // isLastQuestion: boolean = false;
+  // reloadCount: number = 0;
+  // __reloadLimit__: number = 3;
+
   ngOnInit() {
     this.startTimer();
-    this.updateLastQuestionStatus();
+    this.fetchQuestions();
+    // this.updateSelectedOption();
+    window.addEventListener('beforeunload', this.beforeUnloadListener);
   }
 
   ngOnDestroy() {
     clearInterval(this.timerInterval);
+    window.removeEventListener('beforeunload', this.beforeUnloadListener);
+  }
+
+  beforeUnloadListener(event: BeforeUnloadEvent) {
+    const confirmMsg =
+      'Are you sure you want to leave? Your progress will be lost.';
+    event.preventDefault();
+    return confirmMsg;
+  }
+
+  fetchQuestions(): void {
+    this.quizQuestionsService.fetchQuestions().subscribe({
+      next: (data: Question[]) => {
+        this.totalQuestions = data;
+        if (this.totalQuestions.length > 0) {
+          this.currentQuestionIdx = 0;
+          this.updateCurrentQuestion();
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching questions:', error);
+      },
+      // complete: () => {
+      //   console.log('Questions fetched successfully');
+      //   // this.updateLastQuestionStatus();
+      //   // this.updateCurrentQuestion();
+      // },
+    });
   }
 
   startTimer() {
@@ -97,11 +96,18 @@ export class ExamComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  updateCurrentQuestion() {
+    this.currentQuestion = this.totalQuestions[this.currentQuestionIdx];
+    this.selectedOption =
+      this.answerArray[this.currentQuestionIdx]?.selectedOption || '';
+  }
+
   previousQuestion() {
     if (this.currentQuestionIdx > 0) {
       this.currentQuestionIdx--;
       this.updateCurrentQuestion();
-      this.updateLastQuestionStatus();
+      // this.updateLastQuestionStatus();
+      // this.updateSelectedOption();
     }
   }
 
@@ -109,46 +115,55 @@ export class ExamComponent implements OnInit, OnDestroy {
     if (this.currentQuestionIdx < this.totalQuestions.length - 1) {
       this.currentQuestionIdx++;
       this.updateCurrentQuestion();
-      this.updateLastQuestionStatus();
+      // this.updateLastQuestionStatus();
+      // this.updateSelectedOption();
     }
   }
 
   skipQuestion() {
-    this.skippedQuestions.push();
+    if (this.currentQuestion) {
+      this.skippedQuestions.push(this.currentQuestion);
+    }
     this.nextQuestion();
+    // this.updateSelectedOption();
   }
 
-  clearAnswer() {
+  clearAnswer(): void {
     this.selectedOption = '';
-  }
-
-  updateCurrentQuestion() {
-    this.currentQuestion = this.totalQuestions[this.currentQuestionIdx];
-    this.selectedOption = '';
-  }
-
-  updateLastQuestionStatus() {
-    this.isLastQuestion =
-      this.currentQuestionIdx === this.totalQuestions.length - 1;
-  }
-
-  checkAnswer() {
-    if (this.selectedOption === this.currentQuestion.correct) {
-      this.score += 1;
-      this.correctlyAnsweredQuestions.push(
-        this.totalQuestions[this.currentQuestionIdx]
-      );
-    } else if (this.selectedOption === '') {
-      this.skippedQuestions.push(this.totalQuestions[this.currentQuestionIdx]);
-    } else {
-      this.wronglyAnsweredQuestions.push(
-        this.totalQuestions[this.currentQuestionIdx]
-      );
+    if (this.answerArray[this.currentQuestionIdx]) {
+      this.answerArray[this.currentQuestionIdx].selectedOption = '';
     }
   }
 
-  finishExam() {
+  updateAnswer(): void {
+    const existingAnswer = this.answerArray[this.currentQuestionIdx];
+    if (existingAnswer) {
+      this.answerArray[this.currentQuestionIdx].selectedOption =
+        this.selectedOption;
+    } else if (this.currentQuestion) {
+      this.answerArray.push({
+        ...this.currentQuestion,
+        selectedOption: this.selectedOption,
+      });
+    }
+  }
+
+  calculateResult(): void {
+    this.answerArray.forEach((question) => {
+      if (question.selectedOption === question.correct) {
+        this.score++;
+        this.correctlyAnsweredQuestions.push(question);
+      } else if (this.selectedOption === '') {
+        this.skippedQuestions.push(question);
+      } else {
+        this.wronglyAnsweredQuestions.push(question);
+      }
+    });
+  }
+
+  finishExam(): void {
     clearInterval(this.timerInterval);
+    this.calculateResult();
     this.quizStateService.updateQuizState(
       this.correctlyAnsweredQuestions.length,
       this.wronglyAnsweredQuestions.length,
@@ -159,12 +174,24 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.checkAnswer();
+    this.updateAnswer();
 
-    if (this.isLastQuestion) {
+    if (this.currentQuestionIdx === this.totalQuestions.length - 1) {
       this.finishExam();
     } else {
       this.nextQuestion();
     }
   }
+
+  // updateSelectedOption(): void {
+  //   if (this.answerArray.length > this.currentQuestionIdx) {
+  //     this.selectedOption =
+  //       this.answerArray[this.currentQuestionIdx].selectedOption;
+  //   } else this.selectedOption = '';
+  // }
+
+  // updateLastQuestionStatus() {
+  //   this.isLastQuestion =
+  //     this.currentQuestionIdx === this.totalQuestions.length - 1;
+  // }
 }
