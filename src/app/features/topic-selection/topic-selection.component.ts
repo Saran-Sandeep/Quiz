@@ -66,6 +66,10 @@ export class TopicSelectionComponent {
   }
 
   onStartQuiz(): void {
+    if (this.selectedTopics.size === 0) {
+      alert('Please select at least one topic.');
+      return;
+    }
     this.quizQuestionService.setSelectedTopic([...this.selectedTopics]);
     this.router.navigateByUrl('exam');
   }
