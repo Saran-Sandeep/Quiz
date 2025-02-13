@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PasswordValidator } from './password.validator';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 @Component({
   selector: 'app-login-signup',
   imports: [
@@ -21,7 +22,7 @@ import { Router } from '@angular/router';
   styleUrl: './login-signup.component.css',
 })
 export class LoginSignupComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -37,11 +38,21 @@ export class LoginSignupComponent {
     if (this.emailFormControl.valid && this.passwordFormControl.valid) {
       const email = this.emailFormControl.value;
       const password = this.passwordFormControl.value;
-      if (email === 'admin@gmail.com' && password === 'admin123') {
-        this.router.navigateByUrl('landing-page');
+      // if (email === 'admin@gmail.com' && password === 'admin123') {
+      //   this.router.navigateByUrl('landing-page');
+      // }
+
+      if (email && password) {
+        this.authService.login(email, password);
+        if (this.authService.isAuthenticated()) {
+          this.router.navigateByUrl('landing-page');
+        } else {
+          alert('incorrect email or password');
+        }
       }
     } else {
-      console.log('Form is invalid');
+      // console.log('Form is invalid');
+      alert('login unsuccesful');
     }
   }
 }
