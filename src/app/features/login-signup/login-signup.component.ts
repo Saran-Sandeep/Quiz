@@ -1,16 +1,21 @@
-import { Component, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import {
-  FormControl,
   Validators,
   FormsModule,
   ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
+  FormGroupDirective,
+  ValidatorFn,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PasswordValidator } from './password.validator';
+import { CustomValidators } from './cutsom-validators.validator';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-login-signup',
   imports: [
@@ -25,53 +30,128 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginSignupComponent {
   isLogin = signal(true);
+  signupForm!: FormGroup;
+  loginForm!: FormGroup;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  constructor(
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly formBuilder: FormBuilder,
+    private readonly snackBar: MatSnackBar
+  ) {
+    if (
+      !this.router ||
+      !this.authService ||
+      !this.formBuilder ||
+      !this.snackBar
+    ) {
+      throw new Error(
+        'One or more required dependencies are null or undefined.'
+      );
+    }
 
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    // PasswordValidator.strongPassword
-  ]);
+    const strongPasswordValidator: ValidatorFn[] = [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+      CustomValidators.strongPassword,
+    ];
 
-  onSubmit(): void {
-    if (this.emailFormControl.valid && this.passwordFormControl.valid) {
-      const email = this.emailFormControl.value;
-      const password = this.passwordFormControl.value;
+    this.signupForm = this.formBuilder.group({
+      email: this.formBuilder.control<string>('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: this.formBuilder.control<string>('', strongPasswordValidator),
+      confirmPassword: this.formBuilder.control<string>('', [
+        Validators.required,
+        CustomValidators.matchPasswords,
+      ]),
+    });
 
-      if (email && password) {
-        this.authService.login(email, password);
+    this.loginForm = this.formBuilder.group({
+      email: this.formBuilder.control<string>('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: this.formBuilder.control<string>('', [Validators.required]),
+    });
+  }
+
+  /**
+   * Handles the login form submission.
+   *
+   * Validates the form, attempts login, and navigates on success.
+   * Displays error messages on failure.
+   */
+  onLoginSubmit(): void {
+    if (this.loginForm.valid) {
+      const loginEmail: string | null = this.loginForm.get('email')?.value;
+      const loginPassword: string | null =
+        this.loginForm.get('password')?.value;
+
+      // Attempt to login
+      if (loginEmail && loginPassword) {
+        this.authService.login(loginEmail, loginPassword);
+
+        // If successful, navigate to the landing page
         if (this.authService.isAuthenticated()) {
           this.router.navigateByUrl('landing-page');
         } else {
-          alert('Incorrect email or password');
+          // If unsuccessful, reset the form and display an error message
+          this.formDirective.resetForm();
+          this.openSnackBar('Incorrect email or password', 'Close');
         }
+      } else {
+        // If the form is invalid, display an error message
+        this.openSnackBar('Login unsuccessful (form is invalid)', 'Close');
       }
     } else {
-      alert('Login unsuccesful');
+      // If the form is invalid, display an error message
+      this.openSnackBar('Login unsuccessful (form is invalid)', 'Close');
     }
   }
 
-  createAccount(): void {
-    this.isLogin.set(false);
-    console.log(this.isLogin());
+  toggleIsLogin(): void {
+    this.isLogin.update((value) => !value);
   }
 
-  signupNameFormControl = new FormControl('', [Validators.required]);
+  /**
+   * Handles the signup form submission.
+   *
+   * Validates the form, attempts signup, and navigates on success.
+   * Displays error messages on failure.
+   *
+   * @param signupEmail Email address to use for signup
+   * @param signupPassword Password to use for signup
+   * @returns Whether the signup is successful
+   */
+  onSignupSubmit(): void {
+    if (this.signupForm.invalid) {
+      this.openSnackBar('Signup form is invalid', 'Close');
+      return;
+    }
 
-  signupEmailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+    const signupEmail = this.signupForm.get('email')?.value as string;
+    const signupPassword = this.signupForm.get('password')?.value as string;
 
-  signupPasswordFormControl = new FormControl('', [
-    Validators.required,
-    // PasswordValidator.strongPassword
-  ]);
+    if (this.authService.signup(signupEmail, signupPassword)) {
+      this.toggleIsLogin();
+      this.openSnackBar('Signup successful', 'Close');
+    } else {
+      this.formDirective.resetForm();
+      this.openSnackBar(
+        'Email already exists! Please use a different email.',
+        'Close'
+      );
+    }
+  }
 
-  onSignupSubmit(): void {}
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
 }
