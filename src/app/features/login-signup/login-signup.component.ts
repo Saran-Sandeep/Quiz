@@ -115,6 +115,7 @@ export class LoginSignupComponent {
   }
 
   toggleIsLogin(): void {
+    this.formDirective.resetForm();
     this.isLogin.update((value) => !value);
   }
 
