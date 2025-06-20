@@ -11,10 +11,11 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CustomValidators } from './cutsom-validators.validator';
-import { Router } from '@angular/router';
+import { CanMatch, Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-signup',
@@ -32,6 +33,9 @@ export class LoginSignupComponent {
   isLogin = signal(true);
   signupForm!: FormGroup;
   loginForm!: FormGroup;
+
+  access_token!: string;
+  token_type!: string;
 
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
 
@@ -94,7 +98,22 @@ export class LoginSignupComponent {
 
       // Attempt to login
       if (loginEmail && loginPassword) {
-        this.authService.login(loginEmail, loginPassword);
+        // this.authService.login(loginEmail, loginPassword);
+        this.authService.login(loginEmail, loginPassword).subscribe({
+          next: (data) => {
+            this.access_token = data.access_token;
+            this.token_type = data.token_type;
+            this.authService.setLoginDetails(
+              this.access_token,
+              this.token_type,
+              true
+            );
+          },
+          error: (error) => {
+            console.log(error);
+            this.openSnackBar(error.message, 'Close');
+          },
+        });
 
         // If successful, navigate to the landing page
         if (this.authService.isAuthenticated()) {
@@ -138,16 +157,29 @@ export class LoginSignupComponent {
     const signupEmail = this.signupForm.get('email')?.value as string;
     const signupPassword = this.signupForm.get('password')?.value as string;
 
-    if (this.authService.signup(signupEmail, signupPassword)) {
-      this.toggleIsLogin();
-      this.openSnackBar('Signup successful', 'Close');
-    } else {
-      this.formDirective.resetForm();
-      this.openSnackBar(
-        'Email already exists! Please use a different email.',
-        'Close'
-      );
-    }
+    this.authService.signup(signupEmail, signupPassword).subscribe({
+      next: (data) => {
+        const RegisteredUserDetails: any = data;
+        console.log(RegisteredUserDetails);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.toggleIsLogin();
+        this.openSnackBar('Signup successful', 'Close');
+      },
+    });
+    // if (this.authService.signup(signupEmail, signupPassword)) {
+    //   this.toggleIsLogin();
+    //   this.openSnackBar('Signup successful', 'Close');
+    // } else {
+    //   this.formDirective.resetForm();
+    //   this.openSnackBar(
+    //     'Email already exists! Please use a different email.',
+    //     'Close'
+    //   );
+    // }
   }
 
   openSnackBar(message: string, action: string) {

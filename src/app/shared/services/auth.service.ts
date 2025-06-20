@@ -1,27 +1,73 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from '../Models/user';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+
+interface TokenData {
+  access_token: string;
+  token_type: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private userService: UserService) {}
+  backendURL = 'http://localhost:8000';
+
+  constructor(private userService: UserService, private http: HttpClient) {}
 
   isLogged: boolean = false;
+  access_token!: string;
+  token_type!: string;
 
-  login(email: string, password: string): boolean {
-    const user = this.userService.users.find(
-      (user) => user.email === email && user.password === password
-    );
+  login(username: string, password: string): Observable<TokenData> {
+    const body = new URLSearchParams();
+    body.set('username', username);
+    body.set('password', password);
 
-    if (user) {
-      this.isLogged = true;
-      return true;
+    return this.http
+      .post<TokenData>(this.backendURL + '/auth/login', body.toString(), {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-      this.isLogged = false;
-      return false;
+      // Server-side errors
+      switch (error.status) {
+        case 401:
+          errorMessage = 'Invalid credentials';
+          break;
+        case 404:
+          errorMessage = error.error.detail || 'User not found';
+          break;
+        case 500:
+          errorMessage =
+            'Server error: ' + (error.error.detail || 'Internal Server Error');
+          break;
+      }
     }
+
+    return throwError(() => new Error(errorMessage));
+  }
+
+  setLoginDetails(access_token: string, token_type: string, isLogged: boolean) {
+    this.access_token = access_token;
+    this.token_type = token_type;
+    this.isLogged = isLogged;
   }
 
   logout(): void {
@@ -32,19 +78,46 @@ export class AuthService {
     return this.isLogged;
   }
 
-  signup(email: string, password: string): boolean {
-    const userExists = this.userService.users.some(
-      (user) => user.email === email
-    );
+  signup(
+    // username: string,
+    email: string,
+    password: string
+  ) {
+    // const body = new URLSearchParams();
+    // body.set('username', email);
+    // body.set('email', email);
+    // body.set('password', password);
+    const body = {
+      username: email,
+      email: email,
+      password: password,
+    };
 
-    if (userExists) {
-      return false;
+    return this.http
+      .post<TokenData>(this.backendURL + '/user/register', body, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .pipe(catchError(this.handleSignUpErrors));
+  }
+  handleSignUpErrors(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      switch (error.status) {
+        case 400:
+          errorMessage = 'User already exists';
+          break;
+        case 500:
+          errorMessage =
+            'Server error: ' + (error.error.detail || 'Internal Server Error');
+          break;
+      }
     }
-
-    this.userService.users.push(
-      new User(this.userService.users.length + 1, email, password)
-    );
-
-    return true;
+    return throwError(() => new Error(errorMessage));
   }
 }

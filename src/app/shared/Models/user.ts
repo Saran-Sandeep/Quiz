@@ -9,3 +9,8 @@ export class User {
     this.password = password;
   }
 }
+
+export interface Login {
+  username: string;
+  password: string;
+}

@@ -29,9 +29,6 @@ export class CustomValidators {
     const confirmPassword = control.value;
     const password = control.parent?.get('password')?.value;
     if (!password) return { noPassword: true };
-    console.log(
-      'pass : ' + password + ' confirm password : ' + confirmPassword
-    );
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 }
